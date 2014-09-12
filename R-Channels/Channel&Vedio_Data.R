@@ -47,7 +47,7 @@ Channel_Buttons_info<-function(Channel_mainframe)
 }
 
 
-Vedios_data <-function (Channel_maintree)
+Videos_data <-function (Channel_maintree)
 {
   Name <- xpathSApply(Channel_maintree, "//*/a[@class='yt-uix-sessionlink yt-uix-tile-link  spf-link  yt-ui-ellipsis yt-ui-ellipsis-2']", xmlValue)
   Views<- xpathSApply(Channel_maintree, "//*/ul[@class='yt-lockup-meta-info']", xmlValue)
@@ -58,9 +58,9 @@ Vedios_data <-function (Channel_maintree)
   Vedio_link<-xpathSApply(Channel_maintree, "//*/a[@class='ux-thumb-wrap yt-uix-sessionlink contains-addto  spf-link ']", xmlGetAttr,"href")
   Vedio_link<-paste("http://www.youtube.com",Vedio_link,sep="")
 
-  Vedios<-data.frame(Name=Name,Url=Vedio_link,Views=Views,Duration=Duration)
+  Videos<-data.frame(Name=Name,Url=Vedio_link,Views=Views,Duration=Duration)
   
-  tmp<-str_replace_all(Vedios$Views,",","")
+  tmp<-str_replace_all(Videos$Views,",","")
   #number of views
   Views_no<-sub(" views.*","",tmp)
   
@@ -85,16 +85,16 @@ Vedios_data <-function (Channel_maintree)
   Views_time_months[day_no]<-Views_time_months[day_no]/30
   Views_time_months[year_no]<-Views_time_months[year_no]*12
   
-  #data frame Vedios manipulation :: adding new columns
-  Vedios$Views_no<-as.numeric(Views_no)
-  Vedios$Views_time_months<-Views_time_months
+  #data frame Videos manipulation :: adding new columns
+  Videos$Views_no<-as.numeric(Views_no)
+  Videos$Views_time_months<-Views_time_months
   
-  Vedios_orignal<-Vedios
+  Videos_orignal<-Videos
   
   # removing Na values introduced in the character to numeric conversion of Views_no
-  Vedios<-Vedios[!is.na(Vedios$Views_no),]
+  Videos<-Videos[!is.na(Videos$Views_no),]
   
   # might cause problem if a vedio is removed
-  rownames(Vedios)<-1:nrow(Vedios)
-  return(Vedios)
+  rownames(Videos)<-1:nrow(Videos)
+  return(Videos)
 }
