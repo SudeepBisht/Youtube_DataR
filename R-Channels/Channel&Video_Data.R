@@ -16,7 +16,7 @@ ChannelURL<-function(URL)
 }
 
 ######
-#   Channel_link<-function(Channel_mainframe)
+#   Channel_link<-function(Channel_maintree)
 #   {
 #     Channel_link<- xpathSApply(Channel_maintree, "//*/span[@class='about-channel-link-text']", xmlValue)
 #     Channel_link<-gsub("*\\n|^\\s+|\\s+$", '', Channel_link)
@@ -24,7 +24,7 @@ ChannelURL<-function(URL)
 #   }
 
 
-Channel_subscribers<-function(Channel_mainframe)
+Channel_subscribers<-function(Channel_maintree)
 {
 
   Channel_subscribers<- xpathSApply(Channel_maintree, "//*/span[@class='yt-subscription-button-subscriber-count-branded-horizontal']", xmlValue)
@@ -33,13 +33,13 @@ Channel_subscribers<-function(Channel_mainframe)
 
 }
 
-Channel_Links<-function(Channel_mainframe)
+Channel_Links<-function(Channel_maintree)
 {
   Channel_Links<-xpathSApply(Channel_maintree, "//*/a[@class='about-channel-link yt-uix-redirect-link about-channel-link-with-icon']", xmlGetAttr,"href")
   return(Channel_Links)
 }
  
-Channel_Buttons_info<-function(Channel_mainframe)
+Channel_Buttons_info<-function(Channel_maintree)
 {
   Channel_Buttons_info<-xpathSApply(Channel_maintree, "//*/span[@class='yt-uix-button-content']", xmlValue)
   Channel_Buttons_info<-gsub("*\\n|^\\s+|\\s+$", '', Channel_Buttons)
